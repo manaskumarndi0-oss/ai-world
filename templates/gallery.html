@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallery</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#0f0f0f;
+color:white;
+padding-bottom:80px;
+}
+
+.header{
+padding:18px;
+text-align:center;
+font-size:24px;
+font-weight:bold;
+border-bottom:1px solid #222;
+}
+
+.container{
+padding:15px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px;
+}
+
+.grid img{
+width:100%;
+border-radius:12px;
+display:block;
+}
+
+.navbar{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:#111;
+border-top:1px solid #222;
+display:flex;
+justify-content:space-around;
+padding:15px 0;
+}
+
+.navbar a{
+color:white;
+text-decoration:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+Gallery
+</div>
+
+<div class="container">
+
+<div class="grid">
+{% for img in images %}
+<img src="{{ img }}">
+{% endfor %}
+</div>
+
+</div>
+
+<div class="navbar">
+<a href="/">Home</a>
+<a href="/gallery">Gallery</a>
+</div>
+
+</body>
+</html>
