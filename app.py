@@ -73,3 +73,40 @@ if __name__ == "__main__":
 def logout():
     session.pop("user", None)
     return redirect("/login")
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
+
+        conn = sqlite3.connect("database.db")
+        cursor = conn.cursor()
+
+        cursor.execute("SELECT password FROM users WHERE username=?", (username,))
+        user = cursor.fetchone()
+        conn.close()
+
+        if user and user[0] == password:
+            session["user"] = username
+            return redirect("/")
+        else:
+            return "Invalid login"
+
+    return render_template("login.html")
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    if request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
+
+        conn = sqlite3.connect("database.db")
+        cursor = conn.cursor()
+
+        cursor.execute("INSERT INTO users (username, password) VALUES (?, ?)",
+                       (username, password))
+        conn.commit()
+        conn.close()
+
+        return redirect("/login")
+
+    return render_template("register.html")
