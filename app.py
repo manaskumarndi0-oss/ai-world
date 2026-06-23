@@ -3,7 +3,7 @@ import os
 import sqlite3
 
 app = Flask(__name__)
-app.secret_key = "aiworld_secret_key"
+app.secret_key = "aiworld_2026_secure_key"
 UPLOAD_FOLDER = "static/uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
@@ -69,3 +69,7 @@ def gallery():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
+@app.route("/logout")
+def logout():
+    session.pop("user", None)
+    return redirect("/login")
